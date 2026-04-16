@@ -1,0 +1,20 @@
+<!-- Навигационная панель -->
+<nav class="navbar" *ngIf="isLoggedIn()">
+  <div class="nav-brand">
+    <a routerLink="/tasks">📋 Todo App</a>
+  </div>
+  
+  <div class="nav-user">
+    <div class="user-info">
+      <span class="username">👤 {{ getUser()?.username }}</span>
+      <span class="role" [class.admin]="isAdmin()">
+        {{ isAdmin() ? '👑 Администратор' : '👤 Пользователь' }}
+      </span>
+    </div>
+    <button (click)="logout()" class="btn-logout">🚪 Выйти</button>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,47 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>{{ isEditMode ? 'Редактирование задачи' : 'Создание задачи' }}</h2>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Название задачи *</label>
+        <input
+          type="text"
+          id="title"
+          [(ngModel)]="taskData.title"
+          name="title"
+          required
+          class="form-control"
+          placeholder="Введите название задачи"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="status">Статус</label>
+        <select
+          id="status"
+          [(ngModel)]="taskData.status"
+          name="status"
+          class="form-control"
+        >
+          <option *ngFor="let status of statuses" [value]="status">
+            {{ status }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="onCancel()" class="btn-cancel">
+          Отмена
+        </button>
+        <button type="submit" [disabled]="isLoading" class="btn-save">
+          {{ isLoading ? 'Сохранение...' : (isEditMode ? 'Сохранить' : 'Создать') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Вход в систему</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Логин</label>
+        <input 
+          type="text" 
+          [(ngModel)]="credentials.username" 
+          name="username" 
+          required 
+          class="form-control"
+          placeholder="Введите логин"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Пароль</label>
+        <input 
+          type="password" 
+          [(ngModel)]="credentials.password" 
+          name="password" 
+          required 
+          class="form-control"
+          placeholder="Введите пароль"
+        />
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" [disabled]="isLoading" class="btn-login">
+        {{ isLoading ? 'Вход...' : 'Войти' }}
+      </button>
+    </form>
+  </div>
+</div>

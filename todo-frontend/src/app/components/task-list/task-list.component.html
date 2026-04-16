@@ -1,0 +1,48 @@
+<div class="tasks-container">
+  <div class="tasks-header">
+    <h1>Мои задачи</h1>
+    <button [routerLink]="['/tasks/new']" class="btn-create">+ Создать задачу</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    ⏳ Загрузка...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    ❌ {{ errorMessage }}
+  </div>
+
+  <!-- Список задач -->
+  @for (task of tasks; track task.id) {
+    <div class="task-card">
+      <div class="task-info">
+        <h3>{{ task.title }}</h3>
+        <span [class]="'status ' + task.status">
+          {{ getStatusName(task.status) }}
+        </span>
+        <p class="created-at">
+          📅 Создана: {{ task.createdAt | date:'dd.MM.yyyy HH:mm' }}
+        </p>
+      </div>
+      <div class="task-actions">
+        <button [routerLink]="['/tasks', task.id]" class="btn-edit">
+          ✏️ Редактировать
+        </button>
+        <button 
+          *ngIf="isAdmin()" 
+          (click)="onDeleteTask(task.id)" 
+          class="btn-delete"
+        >
+          🗑️ Удалить
+        </button>
+      </div>
+    </div>
+  }
+
+  <div *ngIf="!isLoading && tasks.length === 0" class="empty-state">
+    <p>📭 У вас пока нет задач</p>
+    <button [routerLink]="['/tasks/new']" class="btn-create-empty">
+      + Создать первую задачу
+    </button>
+  </div>
+</div>
